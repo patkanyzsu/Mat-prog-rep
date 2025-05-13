@@ -19,6 +19,8 @@ uncheck = pygame.image.load('uncheck.png').convert_alpha()
 nope = pygame.image.load('nope.png').convert_alpha()
 lightbulb_off = pygame.image.load('lightbulb_off.png').convert_alpha()
 lightbulb_on = pygame.image.load('lightbulb_on.png').convert_alpha()
+add = pygame.image.load('add.png').convert_alpha()
+minus = pygame.image.load('minus.png').convert_alpha()
 
 
 #game variables:
@@ -64,8 +66,8 @@ for x in range(s): #amount of sets
 
 check_button = Button.Button(int(1400), int(665), check, uncheck, 0.2)
 lightbulb_button = Button.Button(int(850), int(650), lightbulb_off, lightbulb_on, 0.2)
-
-
+add_button = Button.Button(int(375), int(350), add, add, 0.2)
+minus_button = Button.Button(int(250), int(350), minus, minus, 0.2)
 
 run = True #global value, determines whether the program should run or not (variable, but usually kept away from everything else for clarity)
 while run: #the meat and bones, everything that will/can change while playing
@@ -95,6 +97,12 @@ while run: #the meat and bones, everything that will/can change while playing
                 lightbulb_button.clicking(pygame.mouse.get_pos())
                 if lightbulb_button.rect.collidepoint(pygame.mouse.get_pos()) and pygame.mouse.get_pressed()[0] == 1:
                     optimal_computer = not optimal_computer
+                add_button.clicking(pygame.mouse.get_pos())
+                if add_button.rect.collidepoint(pygame.mouse.get_pos()) and pygame.mouse.get_pressed()[0] == 1: #clicked the check 
+                    last_point += 1
+                minus_button.clicking(pygame.mouse.get_pos())
+                if minus_button.rect.collidepoint(pygame.mouse.get_pos()) and pygame.mouse.get_pressed()[0] == 1: #clicked the check 
+                    last_point -= 1
 
 
     if player_turn == False and scoreboard == False: #COMPUTER'S TURN
@@ -132,6 +140,9 @@ while run: #the meat and bones, everything that will/can change while playing
         else:
             draw_text("Selfish", font_small, TEXT_COL, 700, 680)
         lightbulb_button.draw(screen)
+        add_button.draw(screen) 
+        minus_button.draw(screen) 
+        draw_text("Last point: " + str(last_point), font_big, TEXT_COL, 500, 350)
     else:
         draw_text(str(u), font_smallest, TEXT_COL, 721, 20)
         draw_text("Press space to pause", font_big, TEXT_COL, 325, 450) #draw the game text
